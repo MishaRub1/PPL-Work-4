@@ -24,7 +24,17 @@ sub_list(Xs, [_|Ys]) :- sub_list(Xs, Ys).
 
 % Signature: swap_list(List, InversedList)/2
 % Purpose: InversedList is the ‘mirror’ representation of List, i.e, each item in the list is recursively replaced with the item at the position, with refers to the beginning and the end of the list.   
+swap_list([], []).
+swap_list([X|Xs], InversedList) :-
+    swap_element(X, SX),
+    swap_list(Xs, SXs),
+    append(SXs, [SX], InversedList).
 
+swap_element([X|Xs], Swapped) :- !, swap_list([X|Xs], Swapped).
+swap_element(X, X).
+
+append([], Xs, Xs).
+append([X|Xs], Ys, [X|Zs]) :- append(Xs, Ys, Zs).
 
 
 
