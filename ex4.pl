@@ -44,9 +44,15 @@ append([X|Xs], Ys, [X|Zs]) :- append(Xs, Ys, Zs).
 
 % Signature: sub_tree(Subtree, Tree)/2
 % Purpose: Tree contains Subtree.
-
+sub_tree(Subtree, tree(_, Left, _)) :- sub_tree(Subtree, Left).
+sub_tree(Subtree, tree(_, _, Right)) :- sub_tree(Subtree, Right).
+sub_tree(tree(X, Left, Right), tree(X, Left, Right)).
 
 
 
 % Signature: swap_tree(Tree, InversedTree)/2
 % Purpose: InversedTree is the �mirror� representation of Tree.
+swap_tree(void, void).
+swap_tree(tree(X, Left, Right), tree(X, SwappedRight, SwappedLeft)) :-
+    swap_tree(Left, SwappedLeft),
+    swap_tree(Right, SwappedRight).
