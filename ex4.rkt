@@ -51,11 +51,10 @@
 ;;Type: [Number * Number -> LzlList<Pair<Number,Number>>
 ;;Pre-condition: init =/= 0
 ;;Tests: (take (sqrt-lzl 2 1) 3) →  '((1 . 1) (3/2 . 1/4) (17/12 . 1/144)) 
-(define sqrt-lzl 
+(define sqrt-lzl
   (lambda (x init)
-   @TODO
-  )
-)  
+    (cons-lzl (cons init (abs (- (square init) x)))
+              (lambda () (sqrt-lzl x (improve init x))))))
 
 ;;Signature: find-first(lzlst, p)
 ;;Purpose: Return the first item in the given lazy list which satisfies the given predicate. If no such item exists return 'fail.
