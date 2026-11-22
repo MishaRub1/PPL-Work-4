@@ -87,9 +87,9 @@
 ;;Tests: (get-value '((a . 3) (b . 4)) 'b) --> 4,(get-value '((a . 3) (b . 4)) 'c) --> 'fail
 (define get-value
   (lambda (assoc-list key)
-   @TODO
-  )
-)
+    (cond ((empty? assoc-list) 'fail)
+          ((eq? (car (car assoc-list)) key) (cdr (car assoc-list)))
+          (else (get-value (cdr assoc-list) key)))))
 
 ;;Signature: get-value$(assoc-list, key, success, fail)
 ;;Purpose: Find the value of 'key'. If 'key' is found, then apply the continuation 'success' on its value val. Otherwise, apply the continuation 'fail'.
@@ -97,9 +97,9 @@
 ;;Tests: > (get-value$ '((a . 3) (b . 4)) 'b (lambda(x) (* x x )) (lambda()#f)) --> 16, (get-value$ '((a . 3) (b . 4)) 'c (lambda(x) (* x x)) (lambda()#f)) --> #f
 (define get-value$
   (lambda (assoc-list key success fail)
-   @TODO
-  )
-)
+    (cond ((empty? assoc-list) (fail))
+          ((eq? (car (car assoc-list)) key) (success (cdr (car assoc-list))))
+          (else (get-value$ (cdr assoc-list) key success fail)))))
 
 ;;Signature: collect-all-values(list-assoc-lists, key)
 ;;Purpose: Returns a list of all values of the first occurrence of 'key' in each of the given association lists. If no such value, returns the empty list.
