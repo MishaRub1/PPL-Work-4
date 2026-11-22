@@ -64,9 +64,9 @@
 
 (define find-first
   (lambda (lz-lst p)
-   @TODO
-  )
-)
+    (cond ((empty-lzl? lz-lst) 'fail)
+          ((p (head lz-lst)) (head lz-lst))
+          (else (find-first (tail lz-lst) p)))))
 
 ;;Signature: sqrt2(x,init,epsilon)
 ;;Purpose: return approximation of the square root of the given number x, according to Newton method, starting from init guess with epsilon threshold.  The procedure uses sqrt-lzl and find-first procedures.
@@ -75,9 +75,8 @@
 ;;Tests: (sqrt2 2 1 0.0001) → 1 169/408
 (define sqrt2
   (lambda (x init epsilon)
-   @TODO
-  )
-)
+    (car (find-first (sqrt-lzl x init)
+                     (lambda (pair) (< (cdr pair) epsilon))))))
 
 
 ;;;; Q2
